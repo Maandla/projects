@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+{% include "messages.html" %}
+<h2>Uploaded Student Scores</h2>
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+        
+        <table id="studentScores" class="table table-bordered table-striped">
+            
+            <thead>
+                <tr>
+                    <th>Gender</th>
+                    <th>Race/Ethnicity</th>
+                    <th>Parental Level of Education</th>
+                    <th>Lunch</th>
+                    <th>Test Prep Course</th>
+                    <th>Math Score</th>
+                    <th>Reading Score</th>
+                    <th>Writing Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                <tr>
+                    <td>{{ score.gender }}</td>
+                    <td>{{ score.race_ethnicity }}</td>
+                    <td>{{ score.parental_level_of_education }}</td>
+                    <td>{{ score.lunch }}</td>
+                    <td>{{ score.test_preparation_course }}</td>
+                    <td>{{ score.math_score }}</td>
+                    <td>{{ score.reading_score }}</td>
+                    <td>{{ score.writing_score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+   
+    {% endblock %}
