@@ -16,7 +16,7 @@
           </li>
         </ul>
       </li>
-  <!--
+
       <li class="nav-item has-submenu">
         <a href="#" class="nav-link text-white hover-effect toggle-submenu d-flex justify-content-between align-items-center">
           <span><i class="fas fa-chart-line me-2"></i> Invoice System</span>
@@ -24,10 +24,10 @@
         </a>
         <ul class="nav flex-column submenu">
           <li class="nav-item">
-            <a href="#" class="nav-link text-white hover-effect">Invoice 1</a>
+            <a href="{% url 'invoices:create-invoice' %}" class="nav-link text-white hover-effect">Create Invoice</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link text-white hover-effect">Invoice 2</a>
+            <a href="{% url 'invoices:invoice-list' %}" class="nav-link text-white hover-effect">View Invoices</a>
           </li>
         </ul>
       </li>
@@ -54,7 +54,7 @@
         <a href="#" class="nav-link text-white hover-effect">
           <i class="fas fa-sign-out-alt me-2"></i> Logout
         </a>
-      </li>-->
+      </li>
   
     </ul>
   </div>

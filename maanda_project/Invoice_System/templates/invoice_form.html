@@ -1,0 +1,89 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">🧾 Create New Invoice</h2>
+    
+    <form method="POST" action="{% url 'invoices:create-invoice' %}">
+        {% csrf_token %}
+    
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Client Information</div>
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <label for="client_name" class="form-label">Client Name</label>
+                    <input type="text" name="client_name" id="client_name" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="client_email" class="form-label">Client Email</label>
+                    <input type="email" name="client_email" id="client_email" class="form-control" required>
+                </div>
+                <div class="col-12">
+                    <label for="client_company" class="form-label">Company Name</label>
+                    <input type="text" name="client_company" id="client_company" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">Invoice Details</div>
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <label for="due_date" class="form-label">Due Date</label>
+                    <input type="date" name="due_date" id="due_date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">VAT (Toggle)</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="include_vat" name="include_vat">
+                        <label class="form-check-label" for="include_vat">Include VAT (15%)</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="invoice_notes" class="form-label">Notes</label>
+                    <textarea name="invoice_notes" id="invoice_notes" rows="3" class="form-control" placeholder="Enter any additional details..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <span>Service Items</span>
+                <button type="button" class="btn btn-light btn-sm" onclick="addServiceRow()">+ Add Item</button>
+            </div>
+            <div class="card-body">
+                <div id="service-items">
+                    <div class="row g-3 mb-3 service-row">
+                        <div class="col-md-6">
+                            <input type="text" name="service_description[]" class="form-control" placeholder="Description" required>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="quantity[]" class="form-control qty" placeholder="Qty" min="1" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" step="0.01" name="price[]" class="form-control price" placeholder="Price (ZAR)" required>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">✖</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-right mb-6">
+            <p class="text-lg font-semibold">Subtotal: R <span id="subtotal">0.00</span></p>
+            <p class="text-md text-gray-600">VAT (15%): R <span id="vat-amount">0.00</span></p>
+            <p class="text-xl font-bold">Total: R <span id="total">0.00</span></p>
+        </div>
+      
+        <div class="text-end">
+            <button type="submit" class="btn btn-success btn-lg">💾 Save Invoice</button>
+        </div>
+    </form>
+</div>
+
+
+ <script src="{% static 'js/create.js' %}"></script>
+{% endblock %}

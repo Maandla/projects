@@ -35,7 +35,7 @@
 </style>
 <body>
     <div class="d-flex" id="wrapper">
-        {% include "sidebar.html" %}
+    
         <div id="page-content" class="flex-grow-1">
           {% block body %}{% endblock %}
         </div>
@@ -47,6 +47,7 @@
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
   <script src="{% static 'js/base.js' %}"></script>
+ 
 {% endblock javascript %}
 </body>
 </html>

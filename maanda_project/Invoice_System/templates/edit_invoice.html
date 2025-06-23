@@ -1,0 +1,84 @@
+
+{% load static %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">✏️ Edit Invoice #{{ invoice.invoice_number }}</h2>
+    
+    <form method="POST" action="{% url 'invoices:edit-invoice' invoice.uuid %}">
+        {% csrf_token %}
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Client Information</div>
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" name="client_name" class="form-control" value="{{ invoice.client.name }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Client Email</label>
+                    <input type="email" name="client_email" class="form-control" value="{{ invoice.client.email }}" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Company Name</label>
+                    <input type="text" name="client_company" class="form-control" value="{{ invoice.client.company_name }}">
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header bg-secondary text-white">Invoice Details</div>
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" name="due_date" class="form-control" value="{{ invoice.due_date|date:'Y-m-d' }}">
+
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">VAT (Toggle)</label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="include_vat" name="include_vat" {% if invoice.vat_enabled %}checked{% endif %}>
+                        <label class="form-check-label" for="include_vat">Include VAT (15%)</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Notes</label>
+                    <textarea name="invoice_notes" rows="3" class="form-control">{{ invoice.notes }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <span>Service Items</span>
+                <button type="button" class="btn btn-light btn-sm" onclick="addServiceRow()">+ Add Item</button>
+            </div>
+            <div class="card-body">
+                <div id="service-items">
+                    {% for item in invoice.items.all %}
+                    <div class="row g-3 mb-3 service-row">
+                        <div class="col-md-6">
+                            <input type="text" name="service_description[]" class="form-control" value="{{ item.description }}" required>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" name="quantity[]" class="form-control qty" value="{{ item.quantity }}" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" step="0.01" name="price[]" class="form-control price" value="{{ item.price }}" required>
+                        </div>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="removeRow(this)">✖</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="text-right mb-6">
+            <p class="text-lg font-semibold">Subtotal: R <span id="subtotal">0.00</span></p>
+            <p class="text-md text-gray-600">VAT (15%): R <span id="vat-amount">0.00</span></p>
+            <p class="text-xl font-bold">Total: R <span id="total">0.00</span></p>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-success btn-lg">💾 Update Invoice</button>
+        </div>
+    </form>
+</div>
+ <script src="{% static 'js/edit.js' %}"></script>
+ 

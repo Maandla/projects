@@ -7,4 +7,5 @@ urlpatterns = [
     path('', home_view, name='index'),
     path('sidebar/', sidebar_view, name='sidebar'),
     path('etl/', include('etl_app.urls', namespace='etl')), 
+    path('invoices/', include('Invoice_System.urls', namespace='invoices')), 
 ]

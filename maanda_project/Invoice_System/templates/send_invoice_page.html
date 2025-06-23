@@ -1,0 +1,43 @@
+
+{% load static %}
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">📤 Send Invoice #{{ invoice.invoice_number }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Client Name:</strong> {{ invoice.client.name }}</p>
+                <p><strong>Client Email:</strong> {{ invoice.client.email }}</p>
+                <p><strong>Invoice Total:</strong> R {{ invoice.total_amount|floatformat:2 }}</p>
+
+                <p class="text-muted mt-3">By clicking send, this invoice will be marked as <strong>sent</strong>.</p>
+
+                <div class="mt-4">
+                    <a href="{% url 'invoices:invoice-list' %}" class="btn btn-secondary">← Back</a>
+                    <button type="submit" class="btn btn-primary">✅ Confirm Send</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('#send-invoice-form');
+    const sendBtn = document.querySelector('#send-btn');
+
+    if (form && sendBtn) {
+        form.addEventListener('submit', function () {
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+        });
+    }
+});
+
+
+</script>

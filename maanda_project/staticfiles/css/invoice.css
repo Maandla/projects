@@ -1,0 +1,103 @@
+ .invoice-container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #f9fff9; /* very light green background */
+    border: 2px solid #a4d4a5; /* soft green border */
+    border-radius: 12px;
+    padding: 30px 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #264d00; /* dark green text */
+    box-shadow: 0 0 12px rgba(132, 193, 132, 0.4);
+  }
+
+  .invoice-title {
+    color: #3a7d44; /* medium green */
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .invoice-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 1.1rem;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  .invoice-meta div {
+    flex: 1 1 45%;
+  }
+
+  .status {
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    color: white;
+    text-transform: capitalize;
+  }
+
+  .status-draft {
+    background-color: #a4d4a5; /* light green */
+  }
+
+  .status-sent {
+    background-color: #7bc47f; /* medium green */
+  }
+
+  .status-paid {
+    background-color: #4caf50; /* strong green */
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    color: #3a7d44;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #a4d4a5;
+    padding-bottom: 8px;
+  }
+
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.1rem;
+  }
+
+  .invoice-table thead tr {
+    background-color: #d3edd3; /* very light green */
+    color: #264d00;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    padding: 12px 18px;
+    border: 1px solid #a4d4a5;
+    text-align: center;
+  }
+
+  .invoice-table tbody tr:hover {
+    background-color: #eaf7ea;
+  }
+
+  .total-container {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    text-align: right;
+    color: #1b3b00;
+    font-weight: 700;
+  }
+
+  .total-amount {
+    background: #a4d4a5;
+    padding: 8px 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 6px rgba(128, 181, 128, 0.5);
+  }
+  .modal-dialog.custom-width {
+  max-width: 1200px;
+  width: 90%;
+}

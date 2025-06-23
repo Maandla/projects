@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/invoice.css' %}">
+
+<div class="invoice-container">
+  <h2 class="invoice-title">Invoice #{{ invoice.invoice_number }}</h2>
+
+  <div class="invoice-meta">
+    <div><strong>Client:</strong> {{ invoice.client.name }} ({{ invoice.client.email }})</div>
+    <div><strong>Company:</strong> {{ invoice.client.company_name|default:"-" }}</div>
+    <div><strong>Status:</strong> <span class="status status-{{ invoice.status }}">{{ invoice.status|title }}</span></div>
+    <div><strong>Due Date:</strong> {{ invoice.due_date }}</div>
+    <div><strong>Notes:</strong> {{ invoice.notes|default:"No notes" }}</div>
+  </div>
+
+  <hr>
+  <h3 class="section-title">Service Items</h3>
+
+  <table class="invoice-table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in invoice.items.all %}
+      <tr>
+        <td>{{ item.description }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>R {{ item.price }}</td>
+        <td>R {{ item.subtotal|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <hr>
+
+<div class="total-container">
+   {% if invoice.vat_enabled %}
+
+  <p><strong>VAT (15%):</strong> R {{ vat_amount|floatformat:2 }}</p>
+{% endif %}
+<p><strong>Total:</strong> R {{ total|floatformat:2 }}</p>
+
+</div>
+
+</div>
