@@ -13,3 +13,12 @@ document.querySelectorAll('.toggle-submenu').forEach(link => {
 $(document).ready(function () {
   $('#studentScores').DataTable();
 });
+
+
+function formatFinanceNumber(num) {
+  if (num === null || num === undefined || isNaN(num)) return '';
+  return Number(num).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}

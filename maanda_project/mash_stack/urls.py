@@ -8,4 +8,7 @@ urlpatterns = [
     path('sidebar/', sidebar_view, name='sidebar'),
     path('etl/', include('etl_app.urls', namespace='etl')), 
     path('invoices/', include('Invoice_System.urls', namespace='invoices')), 
+    path('dashboard/', include('budget_dashboard.urls', namespace='dashboard')), 
+    
+    
 ]

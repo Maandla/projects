@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body %}
+<div class="container mt-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Upload Excel File</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form id="uploadForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="excelFile" class="form-label fw-bold">Select Excel File</label>
+                    <input class="form-control form-control-lg" type="file" id="excelFile" name="excel_file" accept=".xlsx,.xls">
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-lg fw-bold">Upload</button>
+            </form>
+
+            <!-- Progress bar -->
+            <div class="progress mt-4" style="height: 30px; display:none; border-radius: 10px; overflow: hidden;">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" id="progressBar">0%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var form = e.target;
+    var formData = new FormData(form);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', form.action, true);
+
+    var progressContainer = document.querySelector('.progress');
+    var progressBar = document.getElementById('progressBar');
+
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressBar.innerText = '0%';
+
+    xhr.upload.addEventListener('progress', function(e) {
+        if (e.lengthComputable) {
+            var percent = Math.round((e.loaded / e.total) * 100);
+            progressBar.style.width = percent + '%';
+            progressBar.innerText = percent + '%';
+        }
+    });
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.redirect) {
+                window.location.href = response.redirect;
+            }
+        } else {
+            alert('Upload failed. Please try again.');
+            progressContainer.style.display = 'none';
+        }
+    };
+
+    xhr.send(formData);
+});
+</script>
+{% endblock %}

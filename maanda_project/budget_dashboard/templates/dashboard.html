@@ -1,0 +1,145 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block body %}
+<style>
+
+</style>
+<link rel="stylesheet" type="text/css" href="{% static 'css/budget.css' %}">
+<div class="container-fluid py-3">
+    <h1 class="mb-4 text-center">Budget Dashboard</h1>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header card-header-gradient card-allocated">Total Allocated</div>
+                <div class="card-body text-center">
+                    <p class="display-6">R <span id="totalAllocated">{{ total_allocated|floatformat:2 }}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header card-header-gradient card-spent">Total Spent</div>
+                <div class="card-body text-center">
+                    <p class="display-6">R <span id="totalSpent">{{ total_spent|floatformat:2 }}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-header card-header-gradient card-remaining">Remaining</div>
+                <div class="card-body text-center">
+                    <p class="display-6">R <span id="totalRemaining">{{ total_remaining|floatformat:2 }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card shadow-sm mb-4 p-3">
+        <div class="row align-items-end">
+            <div class="col-lg-2 col-md-4 mb-2">
+                <label>Year:</label>
+                <select id="yearFilter" class="form-select">
+                    <option value="">All</option>
+                    {% for y in years %}
+                        <option value="{{ y }}" {% if selected_year|stringformat:"s" == y|stringformat:"s" %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-2">
+                <label>Quarter:</label>
+                <select id="quarterFilter" class="form-select">
+                    <option value="">All</option>
+                    {% for q in quarters %}
+                        <option value="{{ q }}" {% if selected_quarter|stringformat:"s" == q|stringformat:"s" %}selected{% endif %}>Q{{ q }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-2">
+                <label>Department:</label>
+                <select id="departmentFilter" class="form-select">
+                    <option value="">All</option>
+                    {% for d in departments %}
+                        <option value="{{ d }}" {% if selected_department|stringformat:"s" == d|stringformat:"s" %}selected{% endif %}>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-2">
+                <button id="filterBtn" class="btn btn-primary w-100">Filter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1 -->
+    <div class="row mb-4">
+        <div class="col-lg-6 col-md-12 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div id="budgetChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div id="forecastChart" class="chart-container"></div>
+                    <div id="forecastMeta" class="mt-2 text-muted"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="row mb-4">
+        <div class="col-lg-6 col-md-12 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div id="yearlyChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div id="pieChart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Full-Width -->
+    <div class="card shadow-sm table-card mb-5">
+        <div class="card-body">
+            <table id="budgetTable" class="display table table-striped table-bordered" style="width:100%;">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Quarter</th>
+                        <th>Allocated</th>
+                        <th>Spent</th>
+                        <th>Remaining</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script>
+    const DASHBOARD_URL = "{% url 'dashboard:dashboard_view' %}";
+</script>
+
+<script src="{% static 'js/budget.js' %}"></script>
+
+{% endblock %}

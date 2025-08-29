@@ -1,5 +1,9 @@
 <div id="sidebar" class="bg-success text-white d-flex flex-column p-3 shadow-sm">
-    <h4 class="text-white mb-4"><i class="fas fa-leaf me-2"></i>MashStack</h4>
+    <h4 class="mb-4">
+        <a href="{% url 'index' %}" class="text-white text-decoration-none">
+            <i class="fas fa-leaf me-2"></i>MashStack
+        </a>
+    </h4>
     <ul class="nav nav-pills flex-column mb-auto">
       
       <li class="nav-item has-submenu">
@@ -19,8 +23,8 @@
 
       <li class="nav-item has-submenu">
         <a href="#" class="nav-link text-white hover-effect toggle-submenu d-flex justify-content-between align-items-center">
-          <span><i class="fas fa-chart-line me-2"></i> Invoice System</span>
-          <i class="fas fa-caret-down"></i>
+          <span><i class="fas fa-file-invoice-dollar me-2"></i>Invoice System</span>
+        <i class="fas fa-angle-down"></i> 
         </a>
         <ul class="nav flex-column submenu">
           <li class="nav-item">
@@ -31,13 +35,22 @@
           </li>
         </ul>
       </li>
-  <!--
-      <li class="nav-item">
-        <a href="#" class="nav-link text-white hover-effect">
-          <i class="fas fa-cog me-2"></i> Budget Dashboard
+      <li class="nav-item has-submenu">
+        <a href="#" class="nav-link text-white hover-effect toggle-submenu d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-chart-line me-2"></i> Budget Dashboard</span>
+          <i class="fas fa-caret-down"></i>
         </a>
+        <ul class="nav flex-column submenu">
+          <li class="nav-item">
+            <a href="{% url 'dashboard:dashboard_view' %}" class="nav-link text-white hover-effect">Dashboard View</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'dashboard:upload_excel' %}" class="nav-link text-white hover-effect">Upload Budget</a>
+          </li>
+        </ul>
       </li>
-  
+    
+    <!--
       <li class="nav-item">
         <a href="#" class="nav-link text-white hover-effect">
           <i class="fas fa-box me-2"></i> Inventory System

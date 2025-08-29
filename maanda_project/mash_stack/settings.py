@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'etl_app',
     'Invoice_System',
+    'budget_dashboard',
 ]
 
 MIDDLEWARE = [

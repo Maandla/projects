@@ -1,0 +1,25 @@
+/* Gradient headers for cards */
+.card-header-gradient {
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px 5px 0 0;
+    margin: -15px -15px 15px -15px;
+}
+.card-allocated { background: linear-gradient(90deg, #2f7ed8, #1f5aa8); }
+.card-spent     { background: linear-gradient(90deg, #f45b5b, #b32c2c); }
+.card-remaining { background: linear-gradient(90deg, #f7a35c, #d47836); }
+
+/* Hover shadow effect */
+.card:hover { transform: translateY(-5px); transition: 0.3s; }
+
+/* Full viewport height charts */
+.chart-container { height: 450px; }
+
+/* Table card scroll */
+.table-card { max-height: 500px; overflow-y: auto; }
+
+/* Responsive padding */
+@media (max-width: 768px) {
+    .chart-container { height: 350px; }
+}
